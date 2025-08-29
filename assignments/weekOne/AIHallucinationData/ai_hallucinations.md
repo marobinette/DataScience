@@ -30,24 +30,7 @@ I [downloaded](https://www.damiencharlotin.com/hallucinations/) the CSV and move
 
 ### Inside the dataset
 
-The dataset contains 309 rows and 14 columns. In looking at whether or not the data is tidy we can say the following.
-
-Each variable forms a column with a corresponding observation:
-
-- **Case Name** - The legal case identifier
-- **Court** - The court where the case was heard | observations included court locations around the world from USA to New Zealand and Zimbabwe
-- **State(s)** - Geographic jurisdiction
-- **Date** - When the case occurred
-- **Party(ies)** - Who was involved (Lawyer, Pro Se Litigant, etc.)
-- **AI Tool** - Which AI system was used (ChatGPT, Claude AI, etc.)
-- **Hallucination** - Type of AI error (fabricated citations, false quotes, etc.)
-- **Outcome** - Court's decision
-- **Monetary Penalty** - Financial consequences
-- **Professional Sanction** - Professional disciplinary actions
-- **Key Principle** - Legal principle established
-- **Pointer** - Reference to specific legal authority
-- **Source** - Source document
-- **Details** - Detailed description of the case
+The dataset contains 309 rows and 14 columns. In the table below, we describe variables and observations.
 
 | Variable | Description | Observations|
 |---|---|---|
@@ -70,7 +53,7 @@ Is the data tidy? I would say no. For instance, the Monetary Penalty column coul
 
 ### Questions
 Questions I think this dataset could at least begin to answer are as follows:
-    - What countries are seeing the most cases?
-    - What countries have seen the highest monetary penalties?
+- What countries are seeing the most cases?
+- What countries have seen the highest monetary penalties?
 
 Related to questions above, it would be interesting to see if the rate of cases is substantially higher when English is not the language used in interacting with the model. 
