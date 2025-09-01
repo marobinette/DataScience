@@ -5,16 +5,17 @@
 
 ## AI Hallucination Cases
 
-### What is the dataset?
+### 1) What is the dataset?
 [AI Hallucination Cases ](https://www.damiencharlotin.com/hallucinations/)
 
-This is a dataset that looks at "legal decisions in cases where generative AI produced hallucinated content - typically fake citations, but also other types of arguments." I find adoption of AI to be a crucial topic in all settings - professional, educational, professional, etc. However, I found this dataset to be exceptionally interesting given that legal proceedings are typically environments of rigorous preparation. In infiltrating this environment, it really gets at the heart of the idea that AI might be reducing the quality of human thought and work.
+I found this dataset in the 2025.07.16 edition of "Data is Plural". This selection looks at "legal decisions in cases where generative AI produced hallucinated content - typically fake citations, but also other types of arguments." I find adoption of AI to be a crucial topic in all settings - professional, educational, etc. However, I found this dataset to be exceptionally interesting given that legal proceedings are typically environments of rigorous preparation. In infiltrating this environment, it really gets at the heart of the idea that AI might be reducing the quality of human thought and work.
 
-### Outside of the dataset
+### 2) Outside of the dataset
 
 **File Structure:**
 - Single file dataset: `Charlotin-hallucination_cases.csv`
 - No compression applied
+- No copyright information provided
 - Standalone file with no accompanying documentation files
 
 **File Format & Size:**
@@ -22,15 +23,15 @@ This is a dataset that looks at "legal decisions in cases where generative AI pr
 - **File size:** 293.8 KB
 - **Data dimensions:** 309 rows × 14 columns
 
-### Loading the dataset
+### 3) Loading the dataset
 
 I [downloaded](https://www.damiencharlotin.com/hallucinations/) the CSV and moved it into the appropriate folder and used `read_csv` provided by the pandas library.
 
 `df = pd.read_csv('./Charlotin-hallucination_cases.csv')`
 
-### Inside the dataset
+### 4) Inside the dataset
 
-The dataset contains 309 rows and 14 columns. In the table below, we describe variables and observations.
+The dataset contains 309 rows and 14 columns. In the table below, we describe variables and observations. I added a description column since there was no documentation.
 
 | Variable | Description | Observations|
 |---|---|---|
@@ -51,9 +52,9 @@ The dataset contains 309 rows and 14 columns. In the table below, we describe va
 
 Is the data tidy? I would say no. For instance, the Monetary Penalty column could have been handled better. It combines the amount and currency - violating the principle of multiple variables are stored in one column. 
 
-### Questions
+### 5) Questions
 Questions I think this dataset could at least begin to answer are as follows:
 - What countries are seeing the most cases?
 - What countries have seen the highest monetary penalties?
 
-Related to questions above, it would be interesting to see if the rate of cases is substantially higher when English is not the language used in interacting with the model. 
+Related to questions above, it would be interesting to see if the rate of cases is substantially higher when English is not the language used in interacting with the model, but this would require more information.
