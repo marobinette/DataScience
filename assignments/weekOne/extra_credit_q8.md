@@ -1,0 +1,6 @@
+# Data Science 1 - HW 1
+**Date:** September 1, 2025  
+
+## Extra Credit Question 8
+
+I chose to look at [Emotional AI in children's toys and services](https://journals.sagepub.com/doi/10.1177/205395172199487). As a parent of a young human who is already beginning to scatter digital crumbs about, I found this article to be timely. It's one thing for consenting adults to be constantly preyed upon in all digital interactions, but children are another matter. This article "raises concerns about the conversion of child behaviour and subjectivity into biocapital." Interviews conducted with "data protection regulators, leading academics, privacy-oriented non-governmental organisations (NGOs), and diverse industrial and service sectors that use emotional AI" generated key findings that clustered around 4 main themes: generational unfairness, susceptibility of parents, guarded interest, and a need for good governance. Generational unfairness, I suspect, could be defined and argued for by any generation, but I think this moment is quite unique. As if the internet weren't enough, this idea of an AI toy industry creates grave concerns around children's privacy and a general right to an innocent and playful childhood. This is something I would love to learn more about and perhaps develop into an area of my own research. 
