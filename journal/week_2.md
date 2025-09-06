@@ -14,5 +14,13 @@ Feature types are different than data storage types. Feature types refer to a co
 
 ![Alt text](./images/feature_types.png "Feature Types")
 
+### What to look for in a distribution
 
+![Alt text](./images/distributions.png)
 
+**mode:** the value that appears most frequently - in a distribution plot the highest peak
+
+**skew:** a measure of the asymmetry of a distribution, indicating whether it is concentrated on one side or the other. This is determined by the length of the "tail" of the distribution. In the chart above, we say its skewed right because the bulk of the data is concentrated on the leftside.
+
+### What to Look For in a Relationship
+https://learningds.org/ch/10/eda_relationships.html
