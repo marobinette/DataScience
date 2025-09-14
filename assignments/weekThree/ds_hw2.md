@@ -75,26 +75,26 @@ This analysis operates on two levels. At the surface, the data chronicles the na
 
 And with that, let us begin our story by introducing our story's main character. Money! Given this data spans 2023-2024, a simple question one could ask right away is how did spending behave over time? As we can see money spent and expenditures increased sharply in the months leading up to the election.
 
-![Alt text](../shared/weekThree/images/dollars_spent_over_time.png)
+![Alt text](./images/dollars_spent_over_time.png)
 
 
-![Alt text](../shared/weekThree/images/expenditures_over_time.png)
+![Alt text](./images/expenditures_over_time.png)
 
 This naturally leads to the questions:
 - Who is spending this money?
 - What are they spending it on?
 
-![Alt text](../shared/weekThree/images/top_spenders_by_amount.png)
+![Alt text](./images/top_spenders_by_amount.png)
 
-![Alt text](../shared/weekThree/images/top_expense_types_by_count.png)
+![Alt text](./images/top_expense_types_by_count.png)
 
 In this data we can see that there is nothing strange or glamorous about the spending patterns. The money is spent on payroll and various methods of outreach to voters. What is unfortunate about this data is the volume of contributing organizations, it's nearly impossible to have a good sense of all the players invested in American politics. Some names stand out like "MAKE AMERICA GREAT AGAIN INC", but unless you have some extensive domain knowledge, the names of these organizations don't tell you much about their mission (i.e. AB PAC).
 
 Next I waned to look at how spending broke down across political party. We can see exactly what we might expect in that the major political parties in the US are the dominating figures. One thing that would be interesting is to look at how minor parties have trended over time.
 
-![Alt text](../shared/weekThree/images/expenditure_by_party_improved.png)
+![Alt text](./images/expenditure_by_party_improved.png)
 
-![Alt text](../shared/weekThree/images/minor_party_expenditures.png)
+![Alt text](./images/minor_party_expenditures.png)
 
 **AI Assistance:** The visualization improvements for party spending analysis were developed with assistance from Claude (Anthropic Sonnet 4). The AI was prompted with "How can we improve this plot so that it better captures spending by party" and provided code optimization and data visualization improvements. Specific changes included generating Python code with logarithmic scaling, filtering zero values, improving currency formatting, and creating a dual-chart approach. All code logic, formatting functions, and visualization principles were reviewed for accuracy before implementation.
 
@@ -102,7 +102,7 @@ Lastly, what kind of story would this be without a power law distribution? Below
 
 (I do not love this visualization, but in the interest of time I am living with it.)
 
-![Alt text](../shared/weekThree/images/expenditure_amounts_by_party_enhanced.png)
+![Alt text](./images/expenditure_amounts_by_party_enhanced.png)
 
 **AI Assistance:** Claude (Anthropic); prompts: "I am trying to capture a power law distribution in plotting campaign expenditure data - looking at Candidates and the count of expenditures... What would be a nice way to plot this as it tails off quickly from here. There are 1,323 entries. I would like to use seaborn. I am thinking a displot and would like some guidance on setting up bins to properly capture this" and "Explain this graph to me"; used for: generating Python code for power law visualization with logarithmic binning and seaborn, and explaining the resulting graph interpretation; changes: adapted the provided code examples to my specific dataset and selected the log-log scale approach; verification: tested the code with my campaign expenditure data, confirmed the power law pattern matches the theoretical expectations, and validated the graph interpretation against the raw data statistics.
 
