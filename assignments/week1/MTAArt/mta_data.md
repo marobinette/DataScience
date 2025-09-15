@@ -22,7 +22,6 @@ I found this dataset in the 2025.07.16 edition of "Data is Plural". I selected i
 - No compression applied
 - The license for this dataset is unspecified.
 - There was no copyright information provided in the documentation. However, it is stated that Metropolitan Transportation is the owner. There is also a terms of use located [here](https://data.ny.gov/dataset/OPEN-NY-Terms-Of-Use/77gx-ii52/about_data).
-- Standalone file with no accompanying documentation files
 
 **File Format & Size:**
 - **Format:** CSV (Comma-Separated Values)

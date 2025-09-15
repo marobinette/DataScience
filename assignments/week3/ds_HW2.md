@@ -66,9 +66,6 @@ rows_to_remove = df['spe_nam'].isin(spenders_to_remove)
 df = df[~df['spe_nam'].isin(spenders_to_remove)].copy()
 ```
 
-**Data Quality Issues:**
-Luckily the largest issue was called out in the documentation as stated above. However, there are a couple of other things worth calling out. The column names are not very intuitive and do not allow one to just dive into the data. There was a lot of data dictionary consultation. This is fine, but I felt it made the data less approachable. Example of this include things like "pur" for purpose of expenditure or "can_off_sta", which means candidate office state. I call out "pur" because this could be one of the more interesting items in the dataset. 
-
 **Data Story & Findings:**
 
 This analysis operates on two levels. At the surface, the data chronicles the narrative of a presidential election—the candidates, the messaging, the strategic decisions that shaped public discourse. Beneath that visible campaign lies a more complex story: the intricate financial machinery that unfortunately powers modern American democracy. Through Federal Election Commission expenditure data, we can trace not just what campaigns spent, but how money flows through the political ecosystem, revealing the economic infrastructure that transforms political ambitions into electoral outcomes.
@@ -125,46 +122,95 @@ Given this is a new dataset I will focus on questions I would love to explore in
 ---
 
 ### Dataset 2: [Dataset Name]
+**Note:** Feel free to skip over sections 1 and 2 as they are from previous homework. I am leaving them in to keep formatting consistent and to help provide context.
 
 #### 1) What is the dataset?
-[Description of your second dataset - include source, why you chose it, and its relevance]
+[MTA Permanent Art Catalog](https://data.ny.gov/Transportation/MTA-Permanent-Art-Catalog-Beginning-1980/4y8j-9pkd/about_data)
+
+> "Through the Permanent Art Program, MTA Arts & Design (formerly Arts for Transit) commissions public art that is seen by millions of city-dwellers as well as national and international visitors who use the MTA's subways and trains. Arts & Design works closely with the architects and engineers at MTA NYC Transit, Long Island Rail Road and Metro-North Railroad to determine the parameters and sites for the artwork that is to be incorporated into each station scheduled for renovation. A diversity of well-established, mid-career and emerging artists contribute to the growing collection of works created in the materials of the system -mosaic, ceramic, tile, bronze, steel and glass. Artists are chosen through a competitive process that uses selection panels comprised of visual arts professionals and community representatives which review and select artists. This data provides the branch or station and the artist and artwork information."
+
+New York State. (n.d.). MTA Permanent Art Catalog (Beginning 1980) [Dataset]. 
+https://data.ny.gov/Transportation/MTA-Permanent-Art-Catalog-Beginning-1980/4y8j-9pkd/about_data
+
+I found this dataset in the 2025.07.16 edition of "Data is Plural". I selected it because I love NYC, and I love art! Art in public spaces is especially meaningful to me in that it can draw us out of our tiny rectangles filled with metrics and ads, and remind us of the beauty and creativity that exist in our fellow humans. Also, it can really spice up the concrete!
 
 #### 2) Outside of the dataset
 
 **File Structure:**
-- [File details: single/multiple files, compression, documentation, etc.]
+- Single file dataset: `MTA_Permanent_Art_Catalog__Beginning_1980_20250829.csv`
+- No compression applied
+- The license for this dataset is unspecified.
+- There was no copyright information provided in the documentation. However, it is stated that Metropolitan Transportation is the owner. There is also a terms of use located [here](https://data.ny.gov/dataset/OPEN-NY-Terms-Of-Use/77gx-ii52/about_data).
 
 **File Format & Size:**
-- **Format:** [CSV, JSON, etc.]
-- **File size:** [Size in KB/MB]
-- **Data dimensions:** [rows × columns]
+- **Format:** CSV (Comma-Separated Values)
+- **File size:** 523.4 KB
+- **Data dimensions:** 381 rows × 9 columns
 
-#### 3) Loading the dataset
-
-[Describe how you loaded the data and any initial setup]
-
-#### 4) Inside the dataset
-
-**Data Overview:**
-- [Basic statistics about the dataset]
+#### 3) Inside the dataset
+Each row in the dataset represents an art installation and contains the following:
+- 3 columns related to location: agency, station name, and line
+- Artist
+- Art Title
+- Art Date
+- Art Material
+- Art Description - represented as a comma seprated list - more on that below
+- Art image link
 
 **Data Cleaning Steps:**
-- [Describe each cleaning step taken]
-- [Include code snippets where appropriate]
-- [Explain why each step was necessary]
+The biggest issue with the data was that the feature I was most interested in looking into, "Art Material" was represented as a comma separated list for each installation. (e.g. Ceramic tile, red clay, glazes, WonderBoard panel backing) To explore how individual materials were used in relation to other features required some manipulation.
 
-**Data Quality Issues:**
-- [What quality issues were noticed?]
-- [What data was missing?]
-- [How did you handle missing data?]
+There was probably a better way to do this, but I handled it the same way on 2 different features as I was interested in looking at the usage of materials across agency and artists that appeared more than once. The trick here was to create a new DataFrame that contained one row for each individual material and the related feature I was interested in. This allowed me to do further analysis. One data issue here to point out is that some materials were captured as "Glass mosaic" and othres "Glass Mosaic". Lower casing was crucial!
+
+Example:
+```
+tidier_material_data = []
+for idx, row in df.iterrows():
+    feature_of_interest = row['Feature of interest']
+    materials_list = [material.strip().lower() for material in row['Art Material'].split(',')]
+    
+    for material in materials_list:
+        tidier_material_data.append({
+            'Feature': feature_of_interest,
+            'Material': material
+        })
+tidier_material_df = pd.DataFrame(tidier_material_data)
+```
+
 
 **Data Story & Findings:**
-- [Tell the "story" of what you found in the data]
-- [Include technical details and visualizations]
-- [What was surprising?]
-- [How did your research questions shift after looking at the data?]
+This is a story about art in public spaces. It takes place over the course of over 30 years. This leads to my first question. What does the distribution of art installations over time look like? This was a simple task in that "Art date" was represented as a `int64` value.
 
-#### 5) Research Questions Evolution
+![Alt text](./images/art_over_time.png)
+
+Looking at this data, given the mean is nearly 10 installations per year, it would be interesting to investigate years when the number of installations was far below, especially after the project seemed to have taken off. Also, what caused the explosion in 2018?
+
+In constructing a story, in addition to time one must discuss geography. The lay of the land consists of 6 unique agencies, 309 unique stations, and 113 unique lines. This is part of a system that serves "15.3 million people across a 5,000-square-mile travel area surrounding New York City, Long Island, southeastern New York State, and Connecticut" ([Metropolitan Transportation Authority](https://www.mta.info/about)).
+
+In exploring the landscape I focused on agencies and materials. Before relating materials to other features let's first take a look at 10 most used materials across the dataset. Variations on glass materials are clearly the most used. An additional tidying step if time permitted would have been to carefully group these into similar themes. This may have lead to some richer visualizations.
+
+![Alt text](./images/top_10_materials_cleaned.png)
+
+In looking at how materials varied across location I chose to work with agency because this feature was at the top of the geographic hierarchy meaning each row contained an agency entry. The question I researched here was how did material usage vary across agency? There were over 200 unique materials used across the dataset. They included variations on glass, ceramics, metals and even "found objects". To visualize this I created a heatmap, which examines the usage of the 10 most popular materials across agency. NYCT, or New York City Transit, which serves all bus and subway services across the city dominates in the usage of these top materials. One thing I would have like to look at if given more time would have been which agency had the greatest material diversity.
+
+![Alt text](./images/materials_by_agency.png)
+
+**AI assistance**: Claude (Anthropic); prompts: "Is it possible create a new dataframe with agency on the y axis and maybe material on x, and we could have a count of each time the material was used for observation."; used for cross-tabulation matrix creation, data processing methodology, and comprehensive verification system; changes: created station-material and agency-material cross-tabulation matrices with heatmap visualizations, implemented 9-point data verification system, and generated analysis code; verification: cross-checked manual calculations against automated results, verified matrix consistency, and performed statistical validation of data transformations.
+
+Next in our story, we introduce the main characters, the artists! There were 334 unique artists in this dataset. Only 40 of them occurred more than once in the dataset (Kathleen McCarthy occurred 5 times!), and this inspired me to divide the artists into two groups - those that appeared more than once and those that did not. Again I chose to examine the relationship to materials.
+
+![Alt text](./images/material_usage.png)
+
+Recurring artist on average use 1.5~ more materials while one-time artists use more unique materials. 
+
+Lastly, I wanted to take a look at the art description feature. For this exploration, I created a bag of words and examined the 20 most commonly used words. To do this I used `nltk` to tokenize and remove stop words. Oddly enough "station" was the most used word. Perhaps I should have spent my time digging into stations rather than agencies. Also, it's no surprise that "glass" the most used material comes in second. Also "ceramic" makes the list.
+
+My favorite words here are "community" and "neighborhood". I think work of this nature serves our community spaces well, strengthens our bonds, and makes us happier, healthier people. Afterall even data science stories deserve a happy ending.
+
+![Alt text](./images/top_twenty_words.png)
+
+
+#### 4) Research Questions Evolution
 
 **Original Research Questions:**
 - [List your initial research questions from HW1]
@@ -258,7 +304,7 @@ I scratched at the surface of this question in looking at the dollars spent and 
 Great question Gemini! I actually looked at the top 15 spenders. However, more research is needed for this question to provide any real insight. A cool visualization tool would be to develop something that gives you a sense of scale in terms of dollars spent and mission. 
 
 **Question 3:**
-Gemini and I are on the same page! This was one of my future research questions. I like this question because I wonder if the methods of outreach differ and state and national levels. It would also be cool to examine the nature of this outreach. Is it more civil at state level? You could also examine this through a geographical lens.
+Gemini and I are on the same page! This was one of my future research questions. I like this question because I wonder if the methods of outreach differ and state and national levels. It would also be cool to examine the nature of this outreach. Is it more civil at state level? You could also examine this through a geographical lens. Is outreach more civil in certain states?
 
 **Question 4:**
 This question would be very interesting to look at over time. Can enough money turn a state into a swing state? Also, how does spending differ by opposition parties in non-swing states? As for Gemini's question, it stands to reason that the most money and time is likely invested in swing states.
