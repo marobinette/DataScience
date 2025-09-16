@@ -74,20 +74,37 @@ This analysis operates on two levels. At the surface, the data chronicles the na
 
 And with that, let us begin our story by introducing its main character: Money! Given this data spans 2023-2024, a simple question one could ask right away is how did spending behave over time? As we can see, money spent and the number of expenditures increased sharply in the months leading up to the election.
 
+![Alt text](./images/dollars_spent_over_time.png)
+
+
+![Alt text](./images/expenditures_over_time.png)
+
 This naturally leads to the questions:
 
   - Who is spending this money?
   - What are they spending it on?
 
+![Alt text](./images/top_spenders_by_amount.png)
+
+![Alt text](./images/top_expense_types_by_count.png)
+
 In this data, we can see that there is nothing strange or glamorous about the spending patterns. The money is spent on payroll and various methods of outreach to voters. What is unfortunate about this data is the volume of contributing organizations; it's nearly impossible to have a good sense of all the players invested in American politics. Some names stand out like "MAKE AMERICA GREAT AGAIN INC", but unless you have some extensive domain knowledge, the names of these organizations don't tell you much about their mission (e.g., AB PAC).
 
 Next, I wanted to look at how spending broke down by political party. We can see exactly what we might expect in that the major political parties in the US are the dominating figures. One thing that would be interesting is to look at how minor parties have trended over time.
+
+![Alt text](./images/expenditure_by_party_improved.png)
+
+![Alt text](./images/minor_party_expenditures.png)
+
 
 **AI Assistance:** The visualization improvements for party spending analysis were developed with assistance from Claude (Anthropic Sonnet 4). The AI was prompted with "How can we improve this plot so that it better captures spending by party" and provided code optimization and data visualization improvements. Specific changes included generating Python code with logarithmic scaling, filtering zero values, improving currency formatting, and creating a dual-chart approach. All code logic, formatting functions, and visualization principles were reviewed for accuracy before implementation.
 
 Lastly, what kind of story would this be without a power law distribution? Below we can see a power law distribution in a figure that analyzes spending related to candidates. As one might imagine and as seen above, the representatives of the two major parties completely dominate this field.
 
 (I do not love this visualization, but in the interest of time I am living with it.)
+
+![Alt text](./images/expenditure_amounts_by_party_enhanced.png)
+
 
 **AI Assistance:** Claude (Anthropic); prompts: "I am trying to capture a power law distribution in plotting campaign expenditure data - looking at Candidates and the count of expenditures... What would be a nice way to plot this as it tails off quickly from here. There are 1,323 entries. I would like to use seaborn. I am thinking a displot and would like some guidance on setting up bins to properly capture this" and "Explain this graph to me"; used for: generating Python code for power law visualization with logarithmic binning and seaborn, and explaining the resulting graph interpretation; changes: adapted the provided code examples to my specific dataset and selected the log-log scale approach; verification: tested the code with my campaign expenditure data, confirmed the power law pattern matches the theoretical expectations, and validated the graph interpretation against the raw data statistics.
 
@@ -176,23 +193,33 @@ tidier_material_df = pd.DataFrame(tidier_material_data)
 **Data Story & Findings:**
 This is a story about art in public spaces. It takes place over the course of over 30 years. This leads to my first question. What does the distribution of art installations over time look like? This was a simple task, as "Art date" was represented as a `int64` value.
 
+![Alt text](./images/art_over_time.png)
+
 Looking at this data, given the mean is nearly 10 installations per year, it would be interesting to investigate years when the number of installations was far below, especially after the project seemed to have taken off. Also, what caused the explosion in 2018?
 
 In constructing a story, in addition to time one must discuss geography. The lay of the land consists of 6 unique agencies, 309 unique stations, and 113 unique lines. This is part of a system that serves "15.3 million people across a 5,000-square-mile travel area surrounding New York City, Long Island, southeastern New York State, and Connecticut" ([Metropolitan Transportation Authority](https://www.mta.info/about)).
 
 In exploring the landscape I focused on agencies and materials. Before relating materials to other features, let's first take a look at the 10 most-used materials across the dataset. Variations on glass materials are clearly the most used. An additional tidying step if time permitted would have been to carefully group these into similar themes. This may have lead to some richer visualizations.
 
+![Alt text](./images/top_10_materials_cleaned.png)
+
 In looking at how materials varied across location I chose to work with agency because this feature was at the top of the geographic hierarchy meaning each row contained an agency entry. The question I researched here was how did material usage vary across agency? There were over 200 unique materials used across the dataset. They included variations on glass, ceramics, metals and even "found objects". To visualize this I created a heatmap, which examines the usage of the 10 most popular materials across agency. NYCT, or New York City Transit, which serves all bus and subway services across the city dominates in the usage of these top materials. One thing I would have liked to look at if given more time would have been which agency had the greatest material diversity.
+
+![Alt text](./images/materials_by_agency.png)
 
 **AI assistance**: Claude (Anthropic); prompts: "Is it possible create a new dataframe with agency on the y axis and maybe material on x, and we could have a count of each time the material was used for observation."; used for cross-tabulation matrix creation, data processing methodology, and comprehensive verification system; changes: created station-material and agency-material cross-tabulation matrices with heatmap visualizations, implemented 9-point data verification system, and generated analysis code; verification: cross-checked manual calculations against automated results, verified matrix consistency, and performed statistical validation of data transformations.
 
 Next in our story, we introduce the main characters, the artists\! There were 334 unique artists in this dataset. Only 40 of them occurred more than once in the dataset (Kathleen McCarthy occurred 5 times!), and this inspired me to divide the artists into two groups - those that appeared more than once and those that did not. Again I chose to examine the relationship to materials.
+
+![Alt text](./images/material_usage.png)
 
 Recurring artists, on average, use \~1.5 more materials while one-time artists use more unique materials.
 
 Lastly, I wanted to take a look at the art description feature. For this exploration, I created a bag of words and examined the 20 most commonly used words. To do this I used `nltk` to tokenize and remove stop words. Oddly enough "station" was the most used word. Perhaps I should have spent my time digging into stations rather than agencies. Also, it's no surprise that "glass," the most-used material, comes in second. Also "ceramic" makes the list.
 
 My favorite words here are "community" and "neighborhood". I think work of this nature serves our community spaces well, strengthens our bonds, and makes us happier, healthier people. After all, even data science stories deserve a happy ending.
+
+![Alt text](./images/top_twenty_words.png)
 
 #### 4) Research Questions Evolution
 
